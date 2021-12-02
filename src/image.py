@@ -64,6 +64,7 @@ class Image:
     
     
     def localisation(self):
+        #baobab
          c_min= self.W
          c_max=0
          l_min=self.H
@@ -80,11 +81,14 @@ class Image:
                      if l>=l_max:
                         l_max=l
                         
-         res= Image()
-         res.set_pixels(self.pixels[l_min:l_max+1,c_min:c_max+1])
-         return res
+         imagette= Image()
+         imagette.set_pixels(self.pixels[l_min:l_max+1,c_min:c_max+1])
+         return imagette
     
     '''def localisation (self):
+        
+        #tondeuse
+        
         a=True
         while a == True:
             for c in range(self.W):
@@ -132,13 +136,24 @@ class Image:
     #==============================================================================
     # Methode de redimensionnement d'image
     #==============================================================================
-    def resize(self, new_H, new_W):
-        pass
-
+    def resize1(self, new_H, new_W):
+        imre = Image()
+        imre.set_pixels(np.uint8(resize(self.pixels,(new_H,new_W),0))*255)
+        return imre
 
     #==============================================================================
     # Methode de mesure de similitude entre l'image self et un modele im
     #==============================================================================
+    '''on admet que les deux images ont la même taille'''
     def similitude(self, im):
-        pass
+        nbpixel_ident=0
+        for l in range (self.H):
+            for c in range (self.W):
+                if self.pixels[l,c] == im.pixels[l,c]:
+                    nbpixel_ident += 1
+        proportion = float(nbpixel_ident/(self.H*self.W))
+        return proportion
+                    
+    
+        
 
