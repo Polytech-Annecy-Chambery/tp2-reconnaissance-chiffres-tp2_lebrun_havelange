@@ -37,7 +37,9 @@ class Image:
             io.show()
         else:
             print("L'image est vide. Rien à afficher")
-
+            
+            
+    
 
     #==============================================================================
     # Methode de binarisation
@@ -47,9 +49,76 @@ class Image:
     #   on retourne une nouvelle image binarisee
     #==============================================================================
     def binarisation(self, S):
-        pass
+        im_bin = Image()
+        im_bin.set_pixels(np.zeros((self.H, self.W), dtype=np.uint8))
+        for l in range(self.H):
+            for c in range(self.W):
+                if self.pixels[l,c]>S:
+                    im_bin.pixels[l,c] = 255
+                else:
+                    im_bin.pixels[l,c] = 0
+        return im_bin
+    
 
-
+    
+    
+    
+    def localisation(self):
+         c_min= self.W
+         c_max=0
+         l_min=self.H
+         l_max=0
+         for l in range(self.H):
+             for c in range(self.W):
+                 if self.pixels[l][c]==0:
+                     if c<=c_min:
+                        c_min=c
+                     if c>=c_max:
+                        c_max=c
+                     if l<=l_min:
+                        l_min=l
+                     if l>=l_max:
+                        l_max=l
+                        
+         res= Image()
+         res.set_pixels(self.pixels[l_min:l_max+1,c_min:c_max+1])
+         return res
+    
+    '''def localisation (self):
+        a=True
+        while a == True:
+            for c in range(self.W):
+                for l in range (self.H):
+                    if self.pixels[l,c]==0:
+                        a=False
+        cmin= c
+        b=True
+        while b == True:
+            for c2 in reversed(range(self.W)):
+                for l2 in range (self.H):
+                    if self.pixels[l2,c2]==0:
+                        b=False
+        cmax = c2
+        d=True
+        while d == True:
+            for l3 in range(self.H):
+                for c3 in range (self.W):
+                    if self.pixels[l3,c3]==0:
+                        d=False
+        lmin = l3
+        e=True
+        while e == True:
+            for l4 in reversed(range(self.H)):
+                for c4 in range (self.W):
+                    if self.pixels[l4,c4]==0:
+                        e=False
+        lmax = l4
+        imagette = Image()
+       
+        return imagette.set_pixels(self.pixels[lmin:lmax+1,cmin:cmax+1])'''
+        
+        
+            
     #==============================================================================
     # Dans une image binaire contenant une forme noire sur un fond blanc
     # la methode 'localisation' permet de limiter l'image au rectangle englobant
@@ -58,8 +127,7 @@ class Image:
     #   self : l'image binaire que l'on veut recadrer
     #   on retourne une nouvelle image recadree
     #==============================================================================
-    def localisation(self):
-        pass
+    
 
     #==============================================================================
     # Methode de redimensionnement d'image
