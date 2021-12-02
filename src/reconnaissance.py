@@ -17,7 +17,7 @@ def reconnaissance_chiffre(image, liste_modeles, S):
     l=b.localisation()
     
     for ref in liste_modeles:
-        im_resized=l.resize1(ref.H,ref.W)
+        im_resized=l.resize(ref.H,ref.W)
         s =im_resized.similitude(ref)
         s1 = round(s,3)
         liste.append(s1)

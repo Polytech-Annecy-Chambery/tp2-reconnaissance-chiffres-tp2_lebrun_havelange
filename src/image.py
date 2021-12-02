@@ -136,7 +136,7 @@ class Image:
     #==============================================================================
     # Methode de redimensionnement d'image
     #==============================================================================
-    def resize1(self, new_H, new_W):
+    def resize(self, new_H, new_W):
         imre = Image()
         imre.set_pixels(np.uint8(resize(self.pixels,(new_H,new_W),0))*255)
         return imre
